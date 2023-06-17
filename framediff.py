@@ -50,13 +50,10 @@ def three_frame_diff(frame, last_frame, penultimate_frame):
     # diff = diff1 | diff2
     diff = cv2.bitwise_and(diff1, diff2)
 
-    # Dilate first, then Erode
-    # thresh = cv2.(thresh, None, iterations=3)
-
     ret, thresh = cv2.threshold(diff, 25, 255, cv2.THRESH_BINARY)
 
     element_rect = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 5))
-    close = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, element_rect)
+    close = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, element_rect, iterations=4)
 
     cnts, hierarchy = cv2.findContours(close, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     for cnt in cnts:
@@ -68,4 +65,4 @@ def three_frame_diff(frame, last_frame, penultimate_frame):
 
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
-    return thresh
+    return frame
