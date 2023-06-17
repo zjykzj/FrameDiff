@@ -11,7 +11,7 @@ https://learnopencv.com/read-write-and-display-a-video-using-opencv-cpp-python/
 import copy
 
 import cv2
-from framediff import inter_frame_diff, three_frame_diff
+from framediff import inter_frame_diff
 
 
 def main():
@@ -27,7 +27,6 @@ def main():
     # frame_count = cap.get(cv2.CAP_PROP_FRAME_COUNT)
 
     last_frame = None
-    last_frame2 = None
     while True:
         ret, frame = cap.read()
         if not ret:
@@ -36,18 +35,12 @@ def main():
         if last_frame is None:
             last_frame = copy.deepcopy(frame)
             continue
-        if last_frame2 is None:
-            last_frame2 = copy.deepcopy(last_frame)
-            last_frame = copy.deepcopy(frame)
-            continue
 
-        # dst_frame = inter_frame_diff(copy.deepcopy(frame), last_frame)
-        dst_frame = three_frame_diff(copy.deepcopy(frame), last_frame, last_frame2)
-        last_frame2 = copy.deepcopy(last_frame)
+        dst_frame = inter_frame_diff(copy.deepcopy(frame), last_frame)
         last_frame = copy.deepcopy(frame)
 
         # Display the resulting frame
-        cv2.imshow('frame', frame)
+        cv2.imshow('frame', dst_frame)
         if cv2.waitKey(1) == ord('q'):
             break
 
