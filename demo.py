@@ -11,31 +11,11 @@ https://learnopencv.com/read-write-and-display-a-video-using-opencv-cpp-python/
 import copy
 
 import cv2
-
-
-def inter_frame_diff(frame, last_frame):
-    gray1 = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    gray2 = cv2.cvtColor(last_frame, cv2.COLOR_BGR2GRAY)
-
-    blur1 = cv2.GaussianBlur(gray1, (5, 5), 0)
-    blur2 = cv2.GaussianBlur(gray2, (5, 5), 0)
-
-    diff = cv2.absdiff(blur1, blur2)
-    ret, thresh = cv2.threshold(diff, 25, 255, cv2.THRESH_BINARY)
-
-    cnts, hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    for cnt in cnts:
-        if cv2.contourArea(cnt) < 100:
-            continue
-
-        (x, y, w, h) = cv2.boundingRect(cnt)
-        cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-
-    return frame
+from framediff import inter_frame_diff
 
 
 def main():
-    video_path = "./assets/vtest.avi"
+    video_path = "assets/vtest.avi"
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
         print("Cannot read video.")
