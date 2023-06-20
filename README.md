@@ -4,16 +4,20 @@
   <a title="Chinese" href="./README.zh-CN.md">🇨🇳</a>
 </div> -->
 
- <div align="center"><a title="" href="https://github.com/zjykzj/InterframeDiff.git"><img align="center" src="./imgs/InterframeDiff.png"></a></div>
+ <div align="center"><a title="" href="https://github.com/zjykzj/FrameDiff.git"><img align="center" src="./imgs/FrameDiff.png"></a></div>
 
 <p align="center">
-  «InterframeDiff» implements inter-frame difference algorithm.
+  «FrameDiff» implements inter-frame difference algorithm.
 <br>
 <br>
   <a href="https://github.com/RichardLitt/standard-readme"><img src="https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square"></a>
   <a href="https://conventionalcommits.org"><img src="https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg"></a>
   <a href="http://commitizen.github.io/cz-cli/"><img src="https://img.shields.io/badge/commitizen-friendly-brightgreen.svg"></a>
 </p>
+
+<div align="center">
+<img src="./assets/framediff.gif">
+</div>
 
 ## Table of Contents
 
