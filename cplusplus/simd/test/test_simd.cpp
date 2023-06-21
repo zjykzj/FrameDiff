@@ -206,9 +206,9 @@ void Contours() {
     ContourDetector::Contours contours;
     contourDetector.Detect(view_thresh, contours);
 
-    for (size_t i = 0; i < contours.size(); ++i) {
-        for (size_t j = 1; j < contours[i].size(); ++j) {
-            Simd::DrawLine(view_gray2, contours[i][j - 1], contours[i][j], uint8_t(255));
+    for (auto& contour : contours) {
+        for (size_t j = 1; j < contour.size(); ++j) {
+            Simd::DrawLine(view_gray2, contour[j - 1], contour[j], uint8_t(255));
             //            Simd::DrawRectangle(view_gray2, )
         }
     }
@@ -226,14 +226,53 @@ void Contours() {
     cv::waitKey(0);
 }
 
+/*
+ * http://ermig1979.github.io/Simd/help/group__operation.html#ga6154e5dfa9b9ad0f59f3dc75c2322392
+ */
+void BitwiseAnd() {
+    cv::Mat bgr1;
+    bgr1 = cv::imread("../../test/first.jpg", cv::IMREAD_COLOR);
+    assert(!bgr1.empty());
+    cv::Mat bgr2;
+    bgr2 = cv::imread("../../test/second.jpg", cv::IMREAD_COLOR);
+    assert(!bgr2.empty());
+
+    View view_gray1(bgr1.cols, bgr1.rows, View::Gray8);
+    BgrToGray((View)bgr1, view_gray1);
+    View view_gray2(bgr2.cols, bgr2.rows, View::Gray8);
+    BgrToGray((View)bgr2, view_gray2);
+
+    View view_thresh1(bgr1.cols, bgr1.rows, View::Gray8);
+    Binarization(view_gray1, 25, 255, 0, view_thresh1, SimdCompareType::SimdCompareGreater);
+
+    View view_thresh2(bgr1.cols, bgr1.rows, View::Gray8);
+    Binarization(view_gray2, 25, 255, 0, view_thresh2, SimdCompareType::SimdCompareGreater);
+
+    View view_bitwise_and(bgr1.cols, bgr1.rows, View::Gray8);
+    OperationBinary8u(view_thresh1, view_thresh2, view_bitwise_and,
+                      SimdOperationBinary8uType::SimdOperationBinary8uAnd);
+
+    cv::Mat thresh1 = view_thresh1;
+    cv::Mat thresh2 = view_thresh2;
+    cv::Mat bitwise_and = view_bitwise_and;
+
+    cv::imshow("bgr1", bgr1);
+    cv::imshow("bgr2", bgr2);
+    cv::imshow("thresh1", thresh1);
+    cv::imshow("thresh2", thresh2);
+    cv::imshow("bitwise_and", bitwise_and);
+    cv::waitKey(0);
+}
+
 int main(int argc, char* argv[]) {
     //    Bgr2Gray();
     //    GaussianBlur();
     //    AbsDifference();
     //    AbsDifference2();
     //    BinaryThresh();
-    BinaryThresh2();
+    //    BinaryThresh2();
     //    Contours();
+    BitwiseAnd();
 
     return 0;
 }
