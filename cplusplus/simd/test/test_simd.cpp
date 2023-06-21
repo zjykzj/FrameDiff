@@ -13,6 +13,10 @@
 typedef Simd::View<Simd::Allocator> View;
 typedef Simd::ContourDetector<Simd::Allocator> ContourDetector;
 
+/*
+ * http://ermig1979.github.io/Simd/help/group__conversion.html
+ * http://ermig1979.github.io/Simd/help/group__bgr__conversion.html
+ */
 void Bgr2Gray() {
     cv::Mat bgr;
     bgr = cv::imread("../../test/lena.jpg", cv::IMREAD_COLOR);
@@ -29,6 +33,9 @@ void Bgr2Gray() {
     cv::waitKey(0);
 }
 
+/*
+ * http://ermig1979.github.io/Simd/help/group__gaussian__filter.html
+ */
 void GaussianBlur() {
     cv::Mat bgr;
     bgr = cv::imread("../../test/lena.jpg", cv::IMREAD_COLOR);
@@ -51,6 +58,9 @@ void GaussianBlur() {
     cv::waitKey(0);
 }
 
+/*
+ * http://ermig1979.github.io/Simd/help/group__correlation.html
+ */
 void AbsDifference() {
     cv::Mat bgr;
     bgr = cv::imread("../../test/lena.jpg", cv::IMREAD_COLOR);
@@ -80,6 +90,9 @@ void AbsDifference() {
     cv::waitKey(0);
 }
 
+/*
+ * http://ermig1979.github.io/Simd/help/group__correlation.html
+ */
 void AbsDifference2() {
     cv::Mat bgr1;
     bgr1 = cv::imread("../../test/first.jpg", cv::IMREAD_COLOR);
@@ -105,6 +118,9 @@ void AbsDifference2() {
     cv::waitKey(0);
 }
 
+/*
+ * http://ermig1979.github.io/Simd/help/group__binarization.html
+ */
 void BinaryThresh() {
     cv::Mat bgr;
     bgr = cv::imread("../../test/lena.jpg", cv::IMREAD_COLOR);
@@ -141,6 +157,9 @@ void BinaryThresh() {
     cv::waitKey(0);
 }
 
+/*
+ * http://ermig1979.github.io/Simd/help/group__binarization.html
+ */
 void BinaryThresh2() {
     cv::Mat bgr1;
     bgr1 = cv::imread("../../test/first.jpg", cv::IMREAD_COLOR);
@@ -175,6 +194,10 @@ void BinaryThresh2() {
     cv::waitKey(0);
 }
 
+/*
+ * http://ermig1979.github.io/Simd/help/group__cpp__contour.html
+ * http://ermig1979.github.io/Simd/help/struct_simd_1_1_contour_detector.html
+ */
 void Contours() {
     cv::Mat bgr1;
     bgr1 = cv::imread("../../test/first.jpg", cv::IMREAD_COLOR);
