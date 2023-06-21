@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.24)
 project(FrameDiff)
 
 # set opencv
-#set(OpenCV_DIR /home/zj/software/opencv/install_4_5_2/lib/cmake/opencv4)
-set(OpenCV_DIR /home/zj/opencv/opencv-4.4.0/install/lib/cmake/opencv4)
+set(OpenCV_DIR ${CMAKE_SOURCE_DIR}/../../3rdparty/opencv/install/lib/cmake/opencv4)
 find_package(OpenCV REQUIRED)
 
 MESSAGE("OpenCV version: ${OpenCV_VERSION}")
@@ -12,8 +11,8 @@ MESSAGE("OpenCV OpenCV_LIBS: ${OpenCV_LIBS}")
 
 set(CMAKE_CXX_STANDARD 17)
 
-include_directories(/home/zj/pp/Simd/src)
-set(Simd_LIB /home/zj/pp/Simd/build/libSimd.a)
+include_directories(${CMAKE_SOURCE_DIR}/../../3rdparty/Simd/src)
+set(Simd_LIB ${CMAKE_SOURCE_DIR}/../../3rdparty/Simd/build/libSimd.a)
 
 set(EXT_LIB pthread)
 # --------------------------------------------------------
