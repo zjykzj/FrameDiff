@@ -9,7 +9,7 @@
 int main() {
     InterFrameDiff frame_diff;
 
-    const char* video_path = "../../assets/vtest.avi";
+    const char* video_path = "../../../assets/vtest.avi";
     cv::VideoCapture capture(video_path);
     if (!capture.isOpened()) {
         std::cout << "Cannot open video." << std::endl;
@@ -19,7 +19,7 @@ int main() {
     int ex = static_cast<int>(capture.get(cv::CAP_PROP_FOURCC));       // Get Codec Type- Int form
     cv::Size S = cv::Size((int)capture.get(cv::CAP_PROP_FRAME_WIDTH),  // Acquire input size
                           (int)capture.get(cv::CAP_PROP_FRAME_HEIGHT));
-    const char* save_path = "../../assets/framediff.avi";
+    const char* save_path = "../../../assets/framediff.avi";
     cv::VideoWriter writer;
     writer.open(save_path, ex, capture.get(cv::CAP_PROP_FPS), S, true);
     if (!writer.isOpened()) {

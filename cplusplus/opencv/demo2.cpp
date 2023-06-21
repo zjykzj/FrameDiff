@@ -6,7 +6,7 @@
 int main() {
     ThreeFrameDiff frame_diff;
 
-    const char* video_path = "../../assets/vtest.avi";
+    const char* video_path = "../../../assets/vtest.avi";
     cv::VideoCapture capture(video_path);
     if (!capture.isOpened()) {
         std::cout << "Cannot open video." << std::endl;
