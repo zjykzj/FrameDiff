@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.24)
 project(FrameDiff)
 
 # set opencv
-set(OpenCV_DIR /home/zj/software/opencv/install_4_5_2/lib/cmake/opencv4)
+#set(OpenCV_DIR /home/zj/software/opencv/install_4_5_2/lib/cmake/opencv4)
+set(OpenCV_DIR /home/zj/opencv/opencv-4.4.0/install/lib/cmake/opencv4)
 find_package(OpenCV REQUIRED)
 
 MESSAGE("OpenCV version: ${OpenCV_VERSION}")
@@ -19,6 +20,9 @@ set(EXT_LIB pthread)
 
 add_executable(demo1 demo1.cpp framediff.cpp)
 target_link_libraries(demo1 ${OpenCV_LIBS} ${Simd_LIB} ${EXT_LIB})
+
+add_executable(demo2 demo2.cpp framediff.cpp)
+target_link_libraries(demo2 ${OpenCV_LIBS} ${Simd_LIB} ${EXT_LIB})
 
 # ---------------------------------------------------------
 

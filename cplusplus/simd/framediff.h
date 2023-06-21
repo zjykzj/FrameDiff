@@ -24,4 +24,16 @@ class InterFrameDiff {
     View* last_frame = nullptr;
 };
 
+class ThreeFrameDiff {
+   public:
+    ThreeFrameDiff() = default;
+    ~ThreeFrameDiff() = default;
+
+    int Run(const cv::Mat& frame, cv::Mat& dst_frame);
+
+   private:
+    View* last_frame = nullptr;
+    View* penultimate_frame = nullptr;
+};
+
 #endif  // FRAMEDIFF__FRAMEDIFF_H_
