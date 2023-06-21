@@ -5,12 +5,14 @@
 #include "Simd/SimdContour.hpp"
 #include "Simd/SimdDrawing.hpp"
 
+/*
+ * http://ermig1979.github.io/Simd/help/struct_simd_1_1_contour_detector.html#details
+ */
 int main() {
     typedef Simd::ContourDetector<Simd::Allocator> ContourDetector;
 
     ContourDetector::View image;
-    //    image.Load("../../data/image/face/lena.pgm");
-    image.Load("/home/zj/pp/Simd/data/image/face/lena.pgm");
+    image.Load("../../data/image/face/lena.pgm");
 
     ContourDetector contourDetector;
 
