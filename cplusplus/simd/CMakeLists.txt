@@ -17,8 +17,9 @@ set(Simd_LIB /home/zj/pp/Simd/build/libSimd.a)
 set(EXT_LIB pthread)
 # --------------------------------------------------------
 
-add_executable(simd demo.cpp)
-target_link_libraries(simd ${OpenCV_LIBS} ${Simd_LIB} ${EXT_LIB})
+add_executable(demo1 demo1.cpp framediff.cpp)
+target_link_libraries(demo1 ${OpenCV_LIBS} ${Simd_LIB} ${EXT_LIB})
 
-add_executable(contour contour.cpp)
-target_link_libraries(contour ${OpenCV_LIBS} ${Simd_LIB} ${EXT_LIB})
+# ---------------------------------------------------------
+
+add_subdirectory(${CMAKE_SOURCE_DIR}/test)
