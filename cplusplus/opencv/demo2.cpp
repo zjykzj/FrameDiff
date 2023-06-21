@@ -18,6 +18,8 @@ int main() {
     int fh = capture.get(cv::CAP_PROP_FRAME_HEIGHT);
     int frame_count = capture.get(cv::CAP_PROP_FRAME_COUNT);
 
+    double total_t = 0;
+    int num = 0;
     while (true) {
         cv::Mat frame;
         capture.read(frame);
@@ -27,7 +29,12 @@ int main() {
         }
 
         cv::Mat dst_frame;
+        auto t1 = std::chrono::high_resolution_clock::now();
         frame_diff.Run(frame, dst_frame);
+        auto t2 = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double, std::milli> fp_ms = t2 - t1;
+        total_t += fp_ms.count();
+        num++;
 
         assert(!dst_frame.empty());
         cv::imshow("frame", dst_frame);
@@ -35,9 +42,10 @@ int main() {
             break;
         }
     }
-
     capture.release();
     cv::destroyAllWindows();
+
+    std::cout << "One Process need: " << (total_t / num) << "ms" << std::endl;
 
     std::cout << "Hello, World!" << std::endl;
     return 0;

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project(FrameDiff)
 
 # set opencv
-set(OpenCV_DIR /home/zj/software/opencv/install_4_5_2/lib/cmake/opencv4)
+set(OpenCV_DIR ${CMAKE_SOURCE_DIR}/../../3rdparty/opencv/install/lib/cmake/opencv4)
 find_package(OpenCV REQUIRED)
 
 MESSAGE("OpenCV version: ${OpenCV_VERSION}")

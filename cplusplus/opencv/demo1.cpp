@@ -34,6 +34,8 @@ int main() {
               << " of nr#: " << capture.get(cv::CAP_PROP_FRAME_COUNT) << std::endl;
     std::cout << "Input codec type: " << EXT << std::endl;
 
+    double total_t = 0;
+    int num = 0;
     while (true) {
         cv::Mat frame;
         capture.read(frame);
@@ -43,9 +45,14 @@ int main() {
         }
 
         cv::Mat dst_frame;
+        auto t1 = std::chrono::high_resolution_clock::now();
         frame_diff.Run(frame, dst_frame);
-        assert(!dst_frame.empty());
+        auto t2 = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<double, std::milli> fp_ms = t2 - t1;
+        total_t += fp_ms.count();
+        num++;
 
+        assert(!dst_frame.empty());
         writer.write(dst_frame);
 
         cv::imshow("frame", dst_frame);
@@ -53,10 +60,11 @@ int main() {
             break;
         }
     }
-
     capture.release();
     writer.release();
     cv::destroyAllWindows();
+
+    std::cout << "One Process need: " << (total_t / num) << "ms" << std::endl;
 
     std::cout << "Hello, World!" << std::endl;
     return 0;
