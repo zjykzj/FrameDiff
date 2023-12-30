@@ -9,6 +9,8 @@
 
 import cv2
 
+import numpy as np
+
 
 def inter_frame_diff(frame, last_frame):
     gray1 = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -66,3 +68,33 @@ def three_frame_diff(frame, last_frame, penultimate_frame):
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     return frame
+
+
+class BackgroundSubtractor(object):
+
+    def __init__(self):
+        super().__init__()
+
+        self.subtractor = cv2.createBackgroundSubtractorMOG2(detectShadows=True)
+
+        self.kernel = np.ones((3, 3), np.uint8)
+        self.se = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3))
+
+    def run(self, image):
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        mask = self.subtractor.apply(gray)
+
+        # Method 1
+        _, res_image = cv2.threshold(mask, 25, 255, cv2.THRESH_BINARY)
+        # Method 2
+        # dilate_image = cv2.morphologyEx(mask.copy(), cv2.MORPH_OPEN, self.kernel)
+        # res_image = cv2.dilate(dilate_image, self.se, iterations=2)
+
+        contours, _ = cv2.findContours(res_image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        for c in contours:
+            x, y, w, h = cv2.boundingRect(c)
+            if w * h < 1000:
+                continue
+            cv2.rectangle(image, (x, y), (x + w, y + h), (255, 255, 0), 2)
+
+        return image
